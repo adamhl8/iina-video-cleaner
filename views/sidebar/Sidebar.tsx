@@ -1,0 +1,19 @@
+/** biome-ignore-all lint/nursery/noJsxLiterals: ignore */
+
+import { MessageHandler } from "~/shared/message-handler.ts"
+
+const messageHandler = new MessageHandler(iina)
+
+export default function Sidebar() {
+  return (
+    <div className="p-3">
+      <button
+        type="button"
+        className="w-full cursor-pointer rounded-sm bg-blue-500 p-3 text-sm text-white"
+        onClick={() => messageHandler.post("open-window")}
+      >
+        Open Video Cleaner
+      </button>
+    </div>
+  )
+}

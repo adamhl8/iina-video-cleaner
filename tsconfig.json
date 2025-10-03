@@ -1,0 +1,9 @@
+{
+  "extends": "@adamhl8/configs/tsconfig",
+  "exclude": ["./dist/", "./plugin/", "./views/"],
+  "compilerOptions": {
+    "paths": {
+      "~/*": ["./*"]
+    }
+  }
+}

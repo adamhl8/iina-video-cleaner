@@ -1,0 +1,17 @@
+{
+  "name": "video-cleaner",
+  "identifier": "com.adamhl8.iina-video-cleaner",
+  "version": "1.0.0",
+  "description": "Description here",
+  "author": {
+    "name": "IINA Developers",
+    "email": "developers@iina.io",
+    "url": "https://iina.io"
+  },
+  "entry": "dist/index.js",
+  "sidebarTab": { "name": "Video Cleaner" },
+  "permissions": ["show-osd", "show-alert", "video-overlay", "network-request", "file-system"],
+  "allowedDomains": ["*"],
+  "preferencesPage": "pref.html",
+  "preferenceDefaults": {}
+}

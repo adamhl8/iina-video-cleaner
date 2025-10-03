@@ -1,0 +1,46 @@
+{
+  "name": "iina-video-cleaner",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamhl8/ts-explicit-errors.git"
+  },
+  "homepage": "https://github.com/adamhl8/ts-explicit-errors",
+  "bugs": {
+    "url": "https://github.com/adamhl8/ts-explicit-errors/issues"
+  },
+  "author": {
+    "email": "adamhl@pm.me",
+    "name": "Adam Langbert",
+    "url": "https://github.com/adamhl8"
+  },
+  "license": "MIT",
+  "scripts": {
+    "bundle": "bun lint && tsdown",
+    "lint": "markdown-toc -i --bullets '-' --maxdepth 3 ./README.md && ts-import-fix -w -f './src/views/**/*' && tsc --noEmit && biome check --write && adamhl8-knip",
+    "prepare": "find .githooks -type f -exec ln -srf {} .git/hooks/ \\; || true",
+    "prepublishOnly": "bun bundle"
+  },
+  "dependencies": {
+    "@nanostores/react": "^1.0.0",
+    "nanostores": "^1.0.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwindcss": "^4.1.14"
+  },
+  "devDependencies": {
+    "@adamhl8/configs": "^0.17.5",
+    "@biomejs/biome": "^2.2.5",
+    "@tailwindcss/cli": "^4.1.14",
+    "@types/bun": "^1.2.23",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "iina-plugin-definition": "^0.99.3",
+    "knip": "^5.64.2",
+    "markdown-toc": "^1.2.0",
+    "tsdown": "^0.15.6",
+    "typescript": "^5.9.3"
+  }
+}
