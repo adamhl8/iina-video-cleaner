@@ -8,7 +8,7 @@
     "email": "developers@iina.io",
     "url": "https://iina.io"
   },
-  "entry": "dist/index.js",
+  "entry": "dist/main.js",
   "sidebarTab": { "name": "Video Cleaner" },
   "permissions": ["show-osd", "show-alert", "video-overlay", "network-request", "file-system"],
   "allowedDomains": ["*"],

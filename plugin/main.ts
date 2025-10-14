@@ -1,4 +1,4 @@
-import { openWindow } from "~/plugin/window/index.ts"
+import { openWindow } from "~/plugin/window/main.ts"
 import { MessageHandler } from "~/shared/message-handler.ts"
 
 const { event, sidebar, console: logger } = iina

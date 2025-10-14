@@ -9,7 +9,7 @@ export function saveVideo() {
   const videoState = $videoState.get()
   if (videoState.path === null) throw new Error(`failed to save video at index ${videoState.index}: path is null`)
 
-  void utils.sh(`mv "${videoState.path}" "${outDir}"`)
+  void utils.sh(`mv '${videoState.path}' '${outDir}'`)
 
   removeAndPlayNext()
 }

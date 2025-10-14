@@ -25,7 +25,7 @@ const getDistPath = (srcPath: string) => path.join(DIST_ROOT, path.relative(VIEW
 const noExternal = [/.*/]
 
 const pluginConfig = {
-  entry: `${PLUGIN_ROOT}/index.ts`,
+  entry: `${PLUGIN_ROOT}/main.ts`,
   noExternal,
   platform: "browser",
   target: false,

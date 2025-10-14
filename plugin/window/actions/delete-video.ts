@@ -10,7 +10,7 @@ export async function deleteVideo() {
 
   const deletedDir = path.join(outDir, "_deleted")
   await utils.sh(`mkdir -p "${deletedDir}"`)
-  await utils.sh(`mv "${videoState.path}" "${deletedDir}"`)
+  await utils.sh(`mv '${videoState.path}' '${deletedDir}'`)
 
   removeAndPlayNext()
 }

@@ -32,15 +32,15 @@
   },
   "devDependencies": {
     "@adamhl8/configs": "^0.17.5",
-    "@biomejs/biome": "^2.2.5",
+    "@biomejs/biome": "^2.2.6",
     "@tailwindcss/cli": "^4.1.14",
-    "@types/bun": "^1.2.23",
-    "@types/react": "^19.2.0",
-    "@types/react-dom": "^19.2.0",
+    "@types/bun": "^1.3.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
     "iina-plugin-definition": "^0.99.3",
-    "knip": "^5.64.2",
+    "knip": "^5.65.0",
     "markdown-toc": "^1.2.0",
-    "tsdown": "^0.15.6",
+    "tsdown": "^0.15.7",
     "typescript": "^5.9.3"
   }
 }

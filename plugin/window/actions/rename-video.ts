@@ -30,7 +30,7 @@ export function renameVideo(): void {
     }
 
     const destPath = path.join(outDir, finalName)
-    void utils.sh(`mv "${videoState.path}" "${destPath}"`)
+    void utils.sh(`mv '${videoState.path}' '${destPath}'`)
 
     removeAndPlayNext()
   })
