@@ -21,7 +21,6 @@ const VIEWS = {
 } as const
 
 const getDistPath = (srcPath: string) => path.join(DIST_ROOT, path.relative(VIEWS_ROOT, srcPath))
-/** Tsdown resolves `outDir` and `copy.to` as folders (it re-joins the source filename onto `to`). */
 const getDistDir = (srcPath: string) => path.dirname(getDistPath(srcPath))
 
 /** Matches anything so _all_ dependencies are bundled. */
@@ -46,27 +45,16 @@ const pluginConfig = tsdownBundleConfig({
   },
 })
 
-// Each view config is built by an explicit call rather than `Object.values(VIEWS).map(...)`. Mapping produces an
-// `Array<MergedConfig<...>>`, and relating that element type to tsdown's `UserConfig` sends the checker into an
-// unbounded type instantiation (tsc and tsgolint both hang). An array literal of individual calls stays cheap.
-const sidebarConfig = tsdownBundleConfig({
-  entry: VIEWS.sidebar.componentPath,
-  outDir: getDistDir(VIEWS.sidebar.componentPath),
-  deps: { alwaysBundle },
-  platform: "browser",
-  minify: true,
-  copy: [{ from: VIEWS.sidebar.htmlPath, to: getDistDir(VIEWS.sidebar.htmlPath) }],
-  hooks: { "build:done": buildViewCss },
-})
+const viewConfigs = Object.values(VIEWS).map((view) =>
+  tsdownBundleConfig({
+    entry: view.componentPath,
+    outDir: getDistDir(view.componentPath),
+    deps: { alwaysBundle },
+    platform: "browser",
+    minify: true,
+    copy: [{ from: view.htmlPath, to: getDistDir(view.htmlPath) }],
+    hooks: { "build:done": buildViewCss },
+  }),
+)
 
-const windowConfig = tsdownBundleConfig({
-  entry: VIEWS.window.componentPath,
-  outDir: getDistDir(VIEWS.window.componentPath),
-  deps: { alwaysBundle },
-  platform: "browser",
-  minify: true,
-  copy: [{ from: VIEWS.window.htmlPath, to: getDistDir(VIEWS.window.htmlPath) }],
-  hooks: { "build:done": buildViewCss },
-})
-
-export default defineConfig([pluginConfig, sidebarConfig, windowConfig])
+export default defineConfig([pluginConfig, ...viewConfigs])
