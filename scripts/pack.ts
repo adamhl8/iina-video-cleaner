@@ -1,5 +1,5 @@
 import { type } from "arktype"
-import { $ } from "bun"
+import bun, { $ } from "bun"
 
 const INFO_PATH = "./Info.json"
 const PLGZ_PATH = "./iina-video-cleaner.iinaplgz"
@@ -26,13 +26,14 @@ const PluginInfo = type({
 const version = process.argv.at(2)
 if (!version) throw new Error("usage: bun scripts/pack.ts <version>")
 
-const info = PluginInfo.assert(await Bun.file(INFO_PATH).json())
+const info = PluginInfo.assert(await bun.file(INFO_PATH).json())
 
 info.version = version
 info.ghVersion += 1
 
-await Bun.write(INFO_PATH, `${JSON.stringify(info, null, 2)}\n`)
+await bun.write(INFO_PATH, `${JSON.stringify(info, null, 2)}\n`)
 await $`bun oxfmt ${INFO_PATH}`
 
-await $`rm -f ${PLGZ_PATH}`
+const plgz = bun.file(PLGZ_PATH)
+if (await plgz.exists()) await plgz.delete()
 await $`zip --recurse-paths --quiet ${PLGZ_PATH} ${PACKAGE_CONTENTS}`

@@ -1,8 +1,7 @@
-import { execSync } from "node:child_process"
-import fs from "node:fs"
 import path from "node:path"
 
 import { tsdownBundleConfig } from "@adamhl8/configs"
+import { $ } from "bun"
 import { defineConfig } from "tsdown"
 
 const PLUGIN_ROOT = "./plugin"
@@ -26,13 +25,15 @@ const getDistDir = (srcPath: string) => path.dirname(getDistPath(srcPath))
 /** Matches anything so _all_ dependencies are bundled. */
 const alwaysBundle = [/.*/v]
 
-const buildViewCss = () => {
-  const cssOutputPath = `${DIST_ROOT}/global.css`
-  if (fs.existsSync(cssOutputPath)) return // we only need to build the CSS once
+const buildCss = async () => {
+  await $`bun tailwindcss --input ${VIEWS_ROOT}/global.css --output ${DIST_ROOT}/global.css`
+}
 
-  execSync(`tailwindcss -i ${VIEWS_ROOT}/global.css -o ${cssOutputPath}`, {
-    stdio: ["inherit", "inherit", "inherit"],
-  })
+// Every view build triggers this hook, but the CSS is shared, so memoize to build it only once.
+let viewCssBuild: Promise<void> | undefined
+const buildViewCss = async () => {
+  viewCssBuild ??= buildCss()
+  await viewCssBuild
 }
 
 const pluginConfig = tsdownBundleConfig({
