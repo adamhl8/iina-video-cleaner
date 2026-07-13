@@ -1,3 +1,9 @@
+## [0.2.2](https://github.com/adamhl8/iina-video-cleaner/compare/v0.2.1..v0.2.2) - 2026-07-13
+
+### ⚙️ Miscellaneous Tasks
+
+- add keywords ([1404514](https://github.com/adamhl8/iina-video-cleaner/commit/1404514483c43509eff182c0275053a9edeed4fb) by @adamhl8)
+
 ## [0.2.1](https://github.com/adamhl8/iina-video-cleaner/compare/v0.2.0..v0.2.1) - 2026-07-13
 
 ### ⚙️ Miscellaneous Tasks
