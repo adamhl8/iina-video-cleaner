@@ -3,6 +3,10 @@
   "version": "0.2.1",
   "private": true,
   "description": "An IINA plugin for quickly reviewing and cleaning up videos using keyboard shortcuts.",
+  "keywords": [
+    "iina",
+    "iina-plugin"
+  ],
   "license": "MIT",
   "author": {
     "name": "Adam Langbert",
