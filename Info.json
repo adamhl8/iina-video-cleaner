@@ -1,7 +1,7 @@
 {
   "name": "Video Cleaner",
   "identifier": "com.adamhl8.iina-video-cleaner",
-  "version": "v0.2.0",
+  "version": "v0.2.1",
   "description": "An IINA plugin for quickly reviewing and cleaning up videos using keyboard shortcuts.",
   "author": {
     "name": "Adam Langbert",
@@ -9,7 +9,7 @@
     "url": "https://github.com/adamhl8"
   },
   "ghRepo": "adamhl8/iina-video-cleaner",
-  "ghVersion": 1,
+  "ghVersion": 2,
   "entry": "dist/main.js",
   "sidebarTab": {
     "name": "Video Cleaner"
