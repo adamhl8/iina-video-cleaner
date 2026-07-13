@@ -1,16 +1,18 @@
 import { useStore } from "@nanostores/react"
 import { useEffect } from "react"
 
-import { MessageHandler } from "~/shared/message-handler.ts"
-import { $status } from "~/views/window/store.ts"
+import { MessageHandler } from "#shared/message-handler.ts"
+import { $status } from "#views/window/store.ts"
 
 const messageHandler = new MessageHandler(iina)
 
-export default function StatusDisplay() {
+export const StatusDisplay = () => {
   const status = useStore($status)
 
   useEffect(() => {
-    messageHandler.on("update-status", (newStatus) => $status.set(newStatus))
+    messageHandler.on("update-status", (newStatus) => {
+      $status.set(newStatus)
+    })
   }, [])
 
   if (!status) return

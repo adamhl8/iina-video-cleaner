@@ -1,9 +1,9 @@
-import { unregisterKeybinds } from "~/plugin/window/keybinds.ts"
-import { $baseVideoState, $isStarted, $registeredIinaEvents } from "~/plugin/window/store.ts"
+import { unregisterKeybinds } from "#plugin/window/keybinds.ts"
+import { $baseVideoState, $isStarted, $registeredIinaEvents } from "#plugin/window/store.ts"
 
 const { core, event } = iina
 
-export function stop() {
+export const stop = () => {
   unregisterKeybinds()
   $baseVideoState.set({
     videos: [],
@@ -12,9 +12,7 @@ export function stop() {
 
   core.stop()
 
-  for (const { name, id } of $registeredIinaEvents.get()) {
-    event.off(name, id)
-  }
+  for (const { name, id } of $registeredIinaEvents.get()) event.off(name, id)
 
   $isStarted.set(false)
 }

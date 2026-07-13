@@ -9,7 +9,7 @@ interface ParsedPath {
   dir: string
 }
 
-export function parse(path: string): ParsedPath {
+export const parse = (path: string): ParsedPath => {
   const parts = path.split("/")
 
   const filename = parts.at(-1) ?? ""
@@ -24,10 +24,6 @@ export function parse(path: string): ParsedPath {
   return { base: filename, name, ext, dir }
 }
 
-export function join(...parts: string[]): string {
-  return parts.join("/").replaceAll(/\/+/g, "/")
-}
+export const join = (...parts: string[]): string => parts.join("/").replaceAll(/\/+/gv, "/")
 
-export function resolve(path: string): string {
-  return iina.utils.resolvePath(path)
-}
+export const resolve = (path: string): string => iina.utils.resolvePath(path)

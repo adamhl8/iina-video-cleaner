@@ -1,5 +1,6 @@
 {
   "extends": "../tsconfig.json",
   "include": ["./", "../shared/"],
-  "exclude": []
+  "exclude": [],
+  "compilerOptions": { "types": ["iina-plugin-definition"] }
 }

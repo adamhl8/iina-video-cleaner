@@ -1,25 +1,43 @@
-import * as path from "~/plugin/utils/path.ts"
-import * as utils from "~/plugin/utils/utils.ts"
-import { playVideo } from "~/plugin/window/actions/previous-next.ts"
-import { registerKeybinds } from "~/plugin/window/keybinds.ts"
-import { $baseVideoState, $isStarted, $outDir, $registeredIinaEvents, $videoState } from "~/plugin/window/store.ts"
-import type { StartData } from "~/shared/messages.ts"
+import { parse, resolve } from "#plugin/utils/path.ts"
+import { sh } from "#plugin/utils/utils.ts"
+import { playVideo } from "#plugin/window/actions/previous-next.ts"
+import { registerKeybinds } from "#plugin/window/keybinds.ts"
+import { $baseVideoState, $isStarted, $outDir, $registeredIinaEvents, $videoState } from "#plugin/window/store.ts"
+import type { StartData } from "#shared/messages.ts"
 
 const { file, event, core } = iina
 
-export function start({ parentDir, outDir }: StartData) {
+const VIDEO_EXTENSIONS = new Set(["mp4", "mkv", "avi", "mov", "wmv", "flv", "webm", "m4v", "mpg", "mpeg", "qt"])
+
+const getVideos = (dir: string) => {
+  const items = file.list(dir, { includeSubDir: true })
+
+  const videos = items
+    .filter((item) => {
+      if (item.isDir) return false
+      const ext = parse(item.filename).ext?.toLowerCase() ?? ""
+      if (!ext) return false
+      return VIDEO_EXTENSIONS.has(ext.toLowerCase())
+    })
+    .map((item) => `${dir}/${item.filename}`)
+    .toSorted((a, b) => a.localeCompare(b))
+
+  return videos
+}
+
+export const start = ({ parentDir, outDir }: StartData) => {
   if (!(parentDir && outDir)) throw new Error("Please enter both directories")
 
-  const resolvedParentDir = path.resolve(parentDir)
+  const resolvedParentDir = resolve(parentDir)
   if (!file.exists(resolvedParentDir)) throw new Error("Parent directory does not exist")
-  const resolvedOutDir = path.resolve(outDir)
+  const resolvedOutDir = resolve(outDir)
 
   const videos = getVideos(resolvedParentDir)
   if (videos.length === 0) throw new Error(`No videos in '${resolvedParentDir}'`)
 
   $isStarted.set(true)
   $outDir.set(resolvedOutDir)
-  void utils.sh(`mkdir -p "${resolvedOutDir}"`)
+  void sh(`mkdir -p "${resolvedOutDir}"`)
 
   $baseVideoState.set({
     videos,
@@ -43,22 +61,4 @@ export function start({ parentDir, outDir }: StartData) {
 
   registerKeybinds()
   playVideo()
-}
-
-const VIDEO_EXTENSIONS = ["mp4", "mkv", "avi", "mov", "wmv", "flv", "webm", "m4v", "mpg", "mpeg", "qt"]
-
-function getVideos(dir: string) {
-  const items = file.list(dir, { includeSubDir: true })
-
-  const videos = items
-    .filter((item) => {
-      if (item.isDir) return false
-      const ext = path.parse(item.filename).ext?.toLowerCase() ?? ""
-      if (!ext) return false
-      return VIDEO_EXTENSIONS.includes(ext.toLowerCase())
-    })
-    .map((item) => `${dir}/${item.filename}`)
-    .sort((a, b) => a.localeCompare(b))
-
-  return videos
 }

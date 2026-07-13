@@ -1,8 +1,7 @@
-export function tryCatch(fn: () => unknown, onError?: (error: Error) => void) {
+export const tryCatch = (fn: () => unknown, onError?: (error: Error) => void) => {
   try {
     fn()
-  } catch (err) {
-    const error = err instanceof Error ? err : new Error(String(err))
-    onError?.(error)
+  } catch (error) {
+    onError?.(error instanceof Error ? error : new Error(String(error)))
   }
 }

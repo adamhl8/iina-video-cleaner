@@ -1,17 +1,18 @@
 {
-  "name": "video-cleaner",
+  "name": "Video Cleaner",
   "identifier": "com.adamhl8.iina-video-cleaner",
-  "version": "1.0.0",
-  "description": "Description here",
+  "version": "0.1.0",
+  "description": "An IINA plugin for quickly reviewing and cleaning up videos using keyboard shortcuts.",
   "author": {
-    "name": "IINA Developers",
-    "email": "developers@iina.io",
-    "url": "https://iina.io"
+    "name": "Adam Langbert",
+    "email": "adamhl@pm.me",
+    "url": "https://github.com/adamhl8"
   },
+  "ghRepo": "adamhl8/iina-video-cleaner",
+  "ghVersion": 0,
   "entry": "dist/main.js",
-  "sidebarTab": { "name": "Video Cleaner" },
-  "permissions": ["show-osd", "show-alert", "video-overlay", "network-request", "file-system"],
-  "allowedDomains": ["*"],
-  "preferencesPage": "pref.html",
-  "preferenceDefaults": {}
+  "sidebarTab": {
+    "name": "Video Cleaner"
+  },
+  "permissions": ["file-system"]
 }

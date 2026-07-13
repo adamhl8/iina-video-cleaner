@@ -1,12 +1,11 @@
-/** biome-ignore-all lint/nursery/noJsxLiterals: ignore */
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
-import { MessageHandler } from "~/shared/message-handler.ts"
-import { $status } from "~/views/window/store.ts"
+import { MessageHandler } from "#shared/message-handler.ts"
+import { $status } from "#views/window/store.ts"
 
 const messageHandler = new MessageHandler(iina)
 
-export default function RenameSection() {
+export const Rename = () => {
   const [renameValue, setRenameValue] = useState("")
   const [shouldShow, setShouldShow] = useState(false)
 
@@ -26,15 +25,17 @@ export default function RenameSection() {
     }
   }, [shouldShow])
 
-  if (!shouldShow) return
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setRenameValue(e.target.value)
+  }, [])
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setShouldShow(false)
     setRenameValue("")
     messageHandler.post("rename-cancel")
-  }
+  }, [])
 
-  const handleSave = () => {
+  const handleSave = useCallback(() => {
     const newName = renameValue.trim()
     if (!newName) {
       $status.set({ message: "Filename cannot be empty", type: "error" })
@@ -44,16 +45,21 @@ export default function RenameSection() {
     messageHandler.post("rename-end", newName)
 
     handleClose()
-  }
+  }, [renameValue, handleClose])
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") handleSave()
-    else if (e.key === "Escape") handleClose()
-  }
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") handleSave()
+      else if (e.key === "Escape") handleClose()
+    },
+    [handleSave, handleClose],
+  )
+
+  if (!shouldShow) return
 
   return (
     <div className="flex flex-col space-y-3">
-      <span className="text-gray-600 text-sm">Rename file:</span>
+      <span className="text-sm text-gray-600">Rename file:</span>
 
       <input
         className="w-full rounded border border-gray-300 p-2.5 text-sm"
@@ -61,7 +67,7 @@ export default function RenameSection() {
         type="text"
         placeholder="Enter new filename"
         value={renameValue}
-        onChange={(e) => setRenameValue(e.target.value)}
+        onChange={handleChange}
         onKeyDown={handleKeyDown}
       />
 

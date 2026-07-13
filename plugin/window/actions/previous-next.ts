@@ -1,8 +1,8 @@
-import { $baseVideoState, $videoState } from "~/plugin/window/store.ts"
+import { $baseVideoState, $videoState } from "#plugin/window/store.ts"
 
 const { core } = iina
 
-export function playVideo() {
+export const playVideo = () => {
   const videoState = $videoState.get()
   const videoPath = videoState.path
   if (!videoPath) throw new Error(`failed to play video at index '${videoState.index}': path is null`)
@@ -10,7 +10,7 @@ export function playVideo() {
   core.open(videoPath)
 }
 
-export function previousVideo(): void {
+export const previousVideo = (): void => {
   const baseVideoState = $baseVideoState.get()
   // If we're not at the first video, play the previous one, otherwise play the first one
   const previousIndex = baseVideoState.index > 0 ? baseVideoState.index - 1 : 0
@@ -18,7 +18,7 @@ export function previousVideo(): void {
   playVideo()
 }
 
-export function nextVideo(): void {
+export const nextVideo = (): void => {
   const baseVideoState = $baseVideoState.get()
 
   const lastIndex = baseVideoState.videos.length - 1
@@ -29,7 +29,7 @@ export function nextVideo(): void {
   playVideo()
 }
 
-export function removeAndPlayNext() {
+export const removeAndPlayNext = () => {
   const baseVideoState = $baseVideoState.get()
   const videos = baseVideoState.videos.toSpliced(baseVideoState.index, 1)
   const lastIndex = videos.length - 1

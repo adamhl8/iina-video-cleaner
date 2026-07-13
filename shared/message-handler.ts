@@ -1,9 +1,9 @@
-import type { Messages } from "~/shared/messages.ts"
-import { tryCatch } from "~/shared/utils.ts"
+import type { Messages } from "#shared/messages.ts"
+import { tryCatch } from "#shared/utils.ts"
 
 interface IINAShared {
-  postMessage(name: string, data: unknown): void
-  onMessage(name: string, handler: (data: unknown) => void): void
+  postMessage: (name: string, data: unknown) => void
+  onMessage: (name: string, handler: (data: unknown) => void) => void
 }
 
 export class MessageHandler {
@@ -19,7 +19,10 @@ export class MessageHandler {
     onError?: (error: Error) => void,
   ) {
     this.#iina.onMessage(`event:${event}`, (data) => {
-      tryCatch(() => callback(data as Messages[E]), onError)
+      tryCatch(() => {
+        // oxlint-disable-next-line promise/prefer-await-to-callbacks, typescript/no-unsafe-type-assertion -- IINA delivers message data as `unknown` over a callback-based event API
+        callback(data as Messages[E])
+      }, onError)
     })
   }
 

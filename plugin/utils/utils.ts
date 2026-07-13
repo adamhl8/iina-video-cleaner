@@ -1,6 +1,6 @@
 const { utils } = iina
 
-export async function sh(command: string) {
+export const sh = async (command: string) => {
   const { status, stdout, stderr } = await utils.exec("/bin/sh", ["-c", command])
   const output = [stdout, stderr]
     .map((txt) => txt.trim())
