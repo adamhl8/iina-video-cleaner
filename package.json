@@ -1,6 +1,6 @@
 {
   "name": "iina-video-cleaner",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "An IINA plugin for quickly reviewing and cleaning up videos using keyboard shortcuts.",
   "license": "MIT",
