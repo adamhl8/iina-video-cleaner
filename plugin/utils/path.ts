@@ -27,3 +27,14 @@ export const parse = (path: string): ParsedPath => {
 export const join = (...parts: string[]): string => parts.join("/").replaceAll(/\/+/gv, "/")
 
 export const resolve = (path: string): string => iina.utils.resolvePath(path)
+
+/** The path of `to` relative to `from`. Assumes `to` is contained within `from`. */
+export const relative = (from: string, to: string): string => {
+  const fromParts = from.split("/").filter(Boolean)
+  const toParts = to.split("/").filter(Boolean)
+
+  let i = 0
+  while (i < fromParts.length && fromParts[i] === toParts[i]) i++
+
+  return toParts.slice(i).join("/")
+}

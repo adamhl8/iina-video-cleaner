@@ -1,31 +1,33 @@
 import videoExtensions from "video-extensions"
 
-import { parse, resolve } from "#plugin/utils/path.ts"
+import { join, parse, resolve } from "#plugin/utils/path.ts"
 import { sh } from "#plugin/utils/utils.ts"
 import { playVideo } from "#plugin/window/actions/previous-next.ts"
 import { registerKeybinds } from "#plugin/window/keybinds.ts"
-import { $baseVideoState, $isStarted, $outDir, $registeredIinaEvents, $videoState } from "#plugin/window/store.ts"
+import {
+  $baseVideoState,
+  $isStarted,
+  $outDir,
+  $parentDir,
+  $registeredIinaEvents,
+  $videoState,
+} from "#plugin/window/store.ts"
 import type { StartData } from "#shared/messages.ts"
 
 const { file, event, core } = iina
 
 const VIDEO_EXTENSIONS = new Set([...videoExtensions, "ts"])
 
-const getVideos = (dir: string) => {
-  const items = file.list(dir, { includeSubDir: true })
+const collectVideos = (dir: string): string[] =>
+  file.list(dir, { includeSubDir: false }).flatMap((item) => {
+    const itemPath = join(dir, item.filename)
+    if (item.isDir) return collectVideos(itemPath)
 
-  const videos = items
-    .filter((item) => {
-      if (item.isDir) return false
-      const ext = parse(item.filename).ext?.toLowerCase() ?? ""
-      if (!ext) return false
-      return VIDEO_EXTENSIONS.has(ext)
-    })
-    .map((item) => `${dir}/${item.filename}`)
-    .toSorted((a, b) => a.localeCompare(b))
+    const ext = parse(item.filename).ext?.toLowerCase() ?? ""
+    return ext && VIDEO_EXTENSIONS.has(ext) ? [itemPath] : []
+  })
 
-  return videos
-}
+const getVideos = (dir: string) => collectVideos(dir).toSorted((a, b) => a.localeCompare(b))
 
 export const start = ({ parentDir, outDir }: StartData) => {
   if (!(parentDir && outDir)) throw new Error("Please enter both directories")
@@ -38,6 +40,7 @@ export const start = ({ parentDir, outDir }: StartData) => {
   if (videos.length === 0) throw new Error(`No videos in '${resolvedParentDir}'`)
 
   $isStarted.set(true)
+  $parentDir.set(resolvedParentDir)
   $outDir.set(resolvedOutDir)
   void sh(`mkdir -p "${resolvedOutDir}"`)
 

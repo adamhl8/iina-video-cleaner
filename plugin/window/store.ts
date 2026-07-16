@@ -4,6 +4,7 @@ import { parse } from "#plugin/utils/path.ts"
 import type { BaseVideoState, VideoState } from "#shared/messages.ts"
 
 export const $isStarted = atom(false)
+export const $parentDir = atom<string | null>(null)
 export const $outDir = atom<string | null>(null)
 
 export const $registeredIinaEvents = atom<{ name: string; id: string }[]>([])
