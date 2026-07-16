@@ -1,3 +1,11 @@
+## [0.3.0](https://github.com/adamhl8/iina-video-cleaner/compare/v0.2.2..v0.3.0) - 2026-07-16
+
+### 🚀 Features
+
+- add recursive file search ([3d8d863](https://github.com/adamhl8/iina-video-cleaner/commit/3d8d863b070fbacab18b4486418d5857c985f270) by @adamhl8)
+
+- add more video extensions ([1f3ab1d](https://github.com/adamhl8/iina-video-cleaner/commit/1f3ab1de1806223bf6f2439fcad9450777de0d65) by @adamhl8)
+
 ## [0.2.2](https://github.com/adamhl8/iina-video-cleaner/compare/v0.2.1..v0.2.2) - 2026-07-13
 
 ### ⚙️ Miscellaneous Tasks
