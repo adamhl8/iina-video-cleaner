@@ -29,7 +29,8 @@
     "nanostores": "^1.4.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "tailwindcss": "^4.3.2"
+    "tailwindcss": "^4.3.2",
+    "video-extensions": "^2.0.0"
   },
   "devDependencies": {
     "@adamhl8/configs": "^2.2.0",

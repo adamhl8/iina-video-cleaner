@@ -1,3 +1,5 @@
+import videoExtensions from "video-extensions"
+
 import { parse, resolve } from "#plugin/utils/path.ts"
 import { sh } from "#plugin/utils/utils.ts"
 import { playVideo } from "#plugin/window/actions/previous-next.ts"
@@ -7,7 +9,7 @@ import type { StartData } from "#shared/messages.ts"
 
 const { file, event, core } = iina
 
-const VIDEO_EXTENSIONS = new Set(["mp4", "mkv", "avi", "mov", "wmv", "flv", "webm", "m4v", "mpg", "mpeg", "qt"])
+const VIDEO_EXTENSIONS = new Set([...videoExtensions, "ts"])
 
 const getVideos = (dir: string) => {
   const items = file.list(dir, { includeSubDir: true })
@@ -17,7 +19,7 @@ const getVideos = (dir: string) => {
       if (item.isDir) return false
       const ext = parse(item.filename).ext?.toLowerCase() ?? ""
       if (!ext) return false
-      return VIDEO_EXTENSIONS.has(ext.toLowerCase())
+      return VIDEO_EXTENSIONS.has(ext)
     })
     .map((item) => `${dir}/${item.filename}`)
     .toSorted((a, b) => a.localeCompare(b))
