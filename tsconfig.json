@@ -1,4 +1,1 @@
-{
-  "extends": "@adamhl8/configs/tsconfig",
-  "exclude": ["./dist/", "./plugin/", "./views/"]
-}
+{ "extends": "@adamhl8/configs/tsconfig" }

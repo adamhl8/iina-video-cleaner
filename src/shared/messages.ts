@@ -1,6 +1,6 @@
 export interface StartData {
-  parentDir: string | null
-  outDir: string | null
+  parentDir: string | undefined
+  outDir: string | undefined
 }
 
 export interface Status {
@@ -14,8 +14,8 @@ export interface BaseVideoState {
 }
 
 export interface VideoState extends BaseVideoState {
-  path: string | null
-  name: string | null
+  path: string | undefined
+  name: string | undefined
 }
 
 export interface Messages {

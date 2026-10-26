@@ -5,7 +5,7 @@ const { core } = iina
 export const playVideo = () => {
   const videoState = $videoState.get()
   const videoPath = videoState.path
-  if (!videoPath) throw new Error(`failed to play video at index '${videoState.index}': path is null`)
+  if (!videoPath) throw new Error(`failed to play video at index '${videoState.index}': path is not set`)
 
   core.open(videoPath)
 }

@@ -10,7 +10,7 @@ export const saveVideo = () => {
   if (!parentDir) throw new Error("failed to save video: parentDir not set")
 
   const videoState = $videoState.get()
-  if (videoState.path === null) throw new Error(`failed to save video at index ${videoState.index}: path is null`)
+  if (!videoState.path) throw new Error(`failed to save video at index ${videoState.index}: path is not set`)
 
   const subDir = parse(relative(parentDir, videoState.path)).dir
   const destDir = subDir ? join(outDir, subDir) : outDir

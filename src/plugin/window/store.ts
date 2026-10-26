@@ -4,8 +4,8 @@ import { parse } from "#plugin/utils/path.ts"
 import type { BaseVideoState, VideoState } from "#shared/messages.ts"
 
 export const $isStarted = atom(false)
-export const $parentDir = atom<string | null>(null)
-export const $outDir = atom<string | null>(null)
+export const $parentDir = atom<string | undefined>()
+export const $outDir = atom<string | undefined>()
 
 export const $registeredIinaEvents = atom<{ name: string; id: string }[]>([])
 
@@ -15,8 +15,8 @@ export const $baseVideoState = map<BaseVideoState>({
 })
 
 export const $videoState = computed($baseVideoState, (baseVideoState): VideoState => {
-  const videoPath = baseVideoState.videos[baseVideoState.index] ?? null
-  const videoName = videoPath ? parse(videoPath).base : null
+  const videoPath = baseVideoState.videos[baseVideoState.index]
+  const videoName = videoPath ? parse(videoPath).base : undefined
 
   return {
     ...baseVideoState,

@@ -1,15 +1,20 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 import { MessageHandler } from "#shared/message-handler.ts"
 import { $status } from "#views/window/store.ts"
 
 const messageHandler = new MessageHandler(iina)
 
-export const Rename = () => {
+// Select and focus the input on mount.
+// The input mounts each time the rename prompt opens.
+const selectInput = (input: HTMLInputElement | null) => {
+  input?.select()
+  input?.focus()
+}
+
+export function Rename() {
   const [renameValue, setRenameValue] = useState("")
   const [shouldShow, setShouldShow] = useState(false)
-
-  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     messageHandler.on("rename-start", () => {
@@ -17,13 +22,6 @@ export const Rename = () => {
       setShouldShow(true)
     })
   }, [])
-
-  useEffect(() => {
-    if (shouldShow && inputRef.current) {
-      inputRef.current.select()
-      inputRef.current.focus()
-    }
-  }, [shouldShow])
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setRenameValue(e.target.value)
@@ -63,7 +61,7 @@ export const Rename = () => {
 
       <input
         className="w-full rounded border border-gray-300 p-2.5 text-sm"
-        ref={inputRef}
+        ref={selectInput}
         type="text"
         placeholder="Enter new filename"
         value={renameValue}

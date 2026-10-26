@@ -21,7 +21,7 @@ export const renameVideo = (): void => {
 
   messageHandler.on("rename-end", (newName) => {
     const videoState = $videoState.get()
-    if (videoState.path === null) throw new Error(`failed to rename video at index ${videoState.index}: path is null`)
+    if (!videoState.path) throw new Error(`failed to rename video at index ${videoState.index}: path is not set`)
 
     const subDir = parse(relative(parentDir, videoState.path)).dir
     const destDir = subDir ? join(outDir, subDir) : outDir

@@ -31,7 +31,7 @@ const info = PluginInfo.assert(await bun.file(INFO_PATH).json())
 info.version = version
 info.ghVersion += 1
 
-await bun.write(INFO_PATH, `${JSON.stringify(info, null, 2)}\n`)
+await bun.write(INFO_PATH, `${JSON.stringify(info, undefined, 2)}\n`)
 await $`bun oxfmt ${INFO_PATH}`
 
 const plgz = bun.file(PLGZ_PATH)

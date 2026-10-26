@@ -27,7 +27,9 @@ const collectVideos = (dir: string): string[] =>
     return ext && VIDEO_EXTENSIONS.has(ext) ? [itemPath] : []
   })
 
-const getVideos = (dir: string) => collectVideos(dir).toSorted((a, b) => a.localeCompare(b))
+const collator = new Intl.Collator()
+
+const getVideos = (dir: string) => collectVideos(dir).toSorted((a, b) => collator.compare(a, b))
 
 export const start = ({ parentDir, outDir }: StartData) => {
   if (!(parentDir && outDir)) throw new Error("Please enter both directories")

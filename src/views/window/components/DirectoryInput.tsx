@@ -7,7 +7,7 @@ interface DirectoryInputProps {
   onBlur: (value: string) => void
 }
 
-export const DirectoryInput = ({ label, placeholder, disabled = false, onBlur }: DirectoryInputProps) => {
+export function DirectoryInput({ label, placeholder, disabled = false, onBlur }: DirectoryInputProps) {
   const [value, setValue] = useState("")
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

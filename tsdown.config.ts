@@ -4,8 +4,8 @@ import { tsdownBundleConfig } from "@adamhl8/configs"
 import { $ } from "bun"
 import { defineConfig } from "tsdown"
 
-const PLUGIN_ROOT = "./plugin"
-const VIEWS_ROOT = "./views"
+const PLUGIN_ROOT = "./src/plugin"
+const VIEWS_ROOT = "./src/views"
 const DIST_ROOT = "./dist"
 
 const VIEWS = {
@@ -38,7 +38,7 @@ const buildViewCss = async () => {
 
 const pluginConfig = tsdownBundleConfig({
   entry: `${PLUGIN_ROOT}/main.ts`,
-  deps: { alwaysBundle },
+  deps: { alwaysBundle, onlyBundle: false },
   platform: "browser",
   define: {
     IINA_WINDOW_HTML_PATH: `"${getDistPath(VIEWS.window.htmlPath)}"`,
@@ -50,7 +50,7 @@ const viewConfigs = Object.values(VIEWS).map((view) =>
   tsdownBundleConfig({
     entry: view.componentPath,
     outDir: getDistDir(view.componentPath),
-    deps: { alwaysBundle },
+    deps: { alwaysBundle, onlyBundle: false },
     platform: "browser",
     minify: true,
     copy: [{ from: view.htmlPath, to: getDistDir(view.htmlPath) }],

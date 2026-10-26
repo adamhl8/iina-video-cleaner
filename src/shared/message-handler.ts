@@ -20,7 +20,7 @@ export class MessageHandler {
   ) {
     this.#iina.onMessage(`event:${event}`, (data) => {
       tryCatch(() => {
-        // oxlint-disable-next-line promise/prefer-await-to-callbacks, typescript/no-unsafe-type-assertion -- IINA delivers message data as `unknown` over a callback-based event API
+        // oxlint-disable-next-line promise/prefer-await-to-callbacks, typescript/no-unsafe-type-assertion - IINA delivers message data as `unknown` over a callback-based event API
         callback(data as Messages[E])
       }, onError)
     })

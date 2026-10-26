@@ -6,7 +6,7 @@ import { $status } from "#views/window/store.ts"
 
 const messageHandler = new MessageHandler(iina)
 
-export const StatusDisplay = () => {
+export function StatusDisplay() {
   const status = useStore($status)
 
   useEffect(() => {

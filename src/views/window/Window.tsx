@@ -25,7 +25,7 @@ const handleOutDirBlur = (value: string) => {
   $outDir.set(value)
 }
 
-export const Window = () => {
+export function Window() {
   const videoState = useStore($videoState)
   const isStarted = useStore($isStarted)
   const parentDir = useStore($parentDir)
@@ -41,7 +41,7 @@ export const Window = () => {
   }, [])
 
   const handleToggle = useCallback(() => {
-    $status.set(null)
+    $status.set(undefined)
     if (isStarted) messageHandler.post("stop")
     else messageHandler.post("start", { parentDir, outDir })
   }, [isStarted, parentDir, outDir])
@@ -74,7 +74,7 @@ export const Window = () => {
 
       <StatusDisplay />
 
-      {videoState.name !== null && (
+      {videoState.name && (
         <div className="rounded border border-gray-200 bg-gray-50 p-2 text-gray-600">
           <div className="text-sm font-semibold text-gray-700">Current Video</div>
           <div className="mt-1.5 font-semibold text-gray-900">{videoState.name}</div>
