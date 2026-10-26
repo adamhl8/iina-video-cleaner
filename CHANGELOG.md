@@ -1,3 +1,9 @@
+## [0.3.1](https://github.com/adamhl8/iina-video-cleaner/compare/v0.3.0..v0.3.1) - 2026-10-26
+
+### ⚙️ Miscellaneous Tasks
+
+- _(deps)_ update dependencies ([8fda7ac](https://github.com/adamhl8/iina-video-cleaner/commit/8fda7ac53521119e7ac9c258a54b2f349b7a07a9) by @adamhl8)
+
 ## [0.3.0](https://github.com/adamhl8/iina-video-cleaner/compare/v0.2.2..v0.3.0) - 2026-07-16
 
 ### 🚀 Features
